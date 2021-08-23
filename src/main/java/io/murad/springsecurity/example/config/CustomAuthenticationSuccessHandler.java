@@ -27,5 +27,5 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
                     .sendRedirect("/error");
         }
     }
-    }
+
 }
