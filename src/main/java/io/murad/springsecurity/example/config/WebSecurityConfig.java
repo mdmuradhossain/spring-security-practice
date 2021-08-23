@@ -23,7 +23,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.httpBasic();
+//        http.httpBasic(c->{
+//            c.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
+//        });
+        http.formLogin()
+                .defaultSuccessUrl("/home",true);
         http.authorizeRequests()
                 .anyRequest()
                 .authenticated();
@@ -54,13 +58,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     /*
     * For using multiple hashing Algorithm
      */
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        Map<String, PasswordEncoder> encoders = new HashMap<>();
-        encoders.put("noop", NoOpPasswordEncoder.getInstance());
-        encoders.put("bcrypt", new BCryptPasswordEncoder());
-        encoders.put("scrypt", new SCryptPasswordEncoder());
-        return new DelegatingPasswordEncoder("bcrypt", encoders);
-    }
+//    @Bean
+//    public PasswordEncoder passwordEncoder() {
+//        Map<String, PasswordEncoder> encoders = new HashMap<>();
+//        encoders.put("noop", NoOpPasswordEncoder.getInstance());
+//        encoders.put("bcrypt", new BCryptPasswordEncoder());
+//        encoders.put("scrypt", new SCryptPasswordEncoder());
+//        return new DelegatingPasswordEncoder("bcrypt", encoders);
+//    }
 
 }
