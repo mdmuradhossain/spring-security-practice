@@ -18,5 +18,5 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
         httpServletResponse
                 .setHeader("failed", LocalDateTime.now().toString());
     }
-}
+
 }
