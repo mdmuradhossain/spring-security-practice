@@ -1,5 +1,6 @@
 package io.murad.springsecurity.example.config;
 
+import io.murad.springsecurity.example.security.StaticKeyAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,12 +16,16 @@ import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private StaticKeyAuthenticationFilter filter;
 
     @Autowired
     private CustomAuthenticationProvider authenticationProvider;
@@ -36,6 +41,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //        http.httpBasic(c->{
 //            c.authenticationEntryPoint(new CustomAuthenticationEntryPoint());
 //        });
+//        http.addFilterBefore(
+//                new RequestValidationFilter(),
+//                BasicAuthenticationFilter.class)
+//                .authorizeRequests()
+//                .anyRequest().permitAll();
+//    }
+
+//        http.addFilterAt(filter,
+//                BasicAuthenticationFilter.class)
+//                .authorizeRequests()
+//                .anyRequest().permitAll();
+
         http.formLogin()
                 .successHandler(authenticationSuccessHandler)
                 .failureHandler(authenticationFailureHandler)
