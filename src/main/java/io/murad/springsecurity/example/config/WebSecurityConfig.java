@@ -19,8 +19,11 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Configuration
@@ -59,6 +62,19 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                new CSRFTokenLogger(), CsrfFilter.class)
 //                .authorizeRequests()
 //                .anyRequest().permitAll();
+
+//        #CORS
+//        http.cors(c -> {
+//            CorsConfigurationSource source = request -> {
+//                CorsConfiguration config = new CorsConfiguration();
+//                config.setAllowedOrigins(
+//                        List.of("example.com", "example.org"));
+//                config.setAllowedMethods(
+//                        List.of("GET", "POST", "PUT", "DELETE"));
+//                return config;
+//            };
+//            c.configurationSource(source);
+//        });
 
         http.formLogin()
                 .successHandler(authenticationSuccessHandler)
