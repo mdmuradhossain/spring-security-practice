@@ -1,6 +1,9 @@
 package io.murad.springsecurity.example.config;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.security.MessageDigest;
@@ -20,17 +23,27 @@ public class PasswordEncoderImp implements PasswordEncoder {
         return encodedPassword.equals(hashedPassword);
     }
 
-    private String hashWithSHA512(String input){
+    private String hashWithSHA512(String input) {
         StringBuilder result = new StringBuilder();
-        try{
+        try {
             MessageDigest md = MessageDigest.getInstance("SHA512");
-            byte [] digested = md.digest(input.getBytes());
-            for (int i=0; i<digested.length; i++){
+            byte[] digested = md.digest(input.getBytes());
+            for (int i = 0; i < digested.length; i++) {
                 result.append(Integer.toHexString(0xFF & digested[i]));
             }
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException("Bad Algorithm");
         }
         return result.toString();
+    }
+
+    @Bean
+    public BCryptPasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public SCryptPasswordEncoder sCryptPasswordEncoder() {
+        return new SCryptPasswordEncoder();
     }
 }

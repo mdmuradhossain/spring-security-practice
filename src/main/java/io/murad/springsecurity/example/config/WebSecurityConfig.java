@@ -19,6 +19,7 @@ import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.security.web.csrf.CsrfFilter;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -28,6 +29,11 @@ import java.util.Map;
 
 @Configuration
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
     @Autowired
     private StaticKeyAuthenticationFilter filter;
@@ -98,7 +104,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 //                .password(passwordEncoder().encode("admin"))
 //                .roles("ADMIN")
 //                .authorities("read");
-//        Roles and Authories
+//        Roles and Authorities
 //        auth.inMemoryAuthentication()
 //                .withUser("murad")
 //                .password(passwordEncoder().encode("admin"))
