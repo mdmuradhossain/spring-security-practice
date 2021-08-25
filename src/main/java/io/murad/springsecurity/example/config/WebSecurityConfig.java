@@ -1,5 +1,6 @@
 package io.murad.springsecurity.example.config;
 
+import io.murad.springsecurity.example.security.CSRFTokenLogger;
 import io.murad.springsecurity.example.security.StaticKeyAuthenticationFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -17,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.scrypt.SCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.security.web.csrf.CsrfFilter;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,6 +52,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 //        http.addFilterAt(filter,
 //                BasicAuthenticationFilter.class)
+//                .authorizeRequests()
+//                .anyRequest().permitAll();
+//        #CSRFFilter
+//        http.addFilterAfter(
+//                new CSRFTokenLogger(), CsrfFilter.class)
 //                .authorizeRequests()
 //                .anyRequest().permitAll();
 
